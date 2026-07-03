@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Notas 2026 - ProfeDiego</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        /* Barra superior institucional */
+        .navbar {
+            background-color: #004077; 
+            border-bottom: 4px solid #f2ae1b; 
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: white;
+        }
+        .brand img {
+            height: 35px;
+            width: auto;
+        }
+        .nav-title {
+            text-align: left;
+            border-left: 1px solid rgba(255,255,255,0.3);
+            padding-left: 20px;
+        }
+        .nav-title h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .nav-title p {
+            font-size: 0.8rem;
+            color: #ddd;
+        }
+        /* Contenedor principal */
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 30px 20px;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            max-width: 600px;
+            width: 100%;
+        }
+        .card h1 {
+            color: #004077;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        /* Formulario de Notas */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .input-group label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #444;
+        }
+        .input-group input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            text-align: center;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #004077;
+            box-shadow: 0 0 5px rgba(0,64,119,0.2);
+        }
+        /* Checkbox de Evaluación Núcleo */
+        .checkbox-group {
+            grid-column: span 2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        .checkbox-group input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .checkbox-group label {
+            font-size: 0.9rem;
+            cursor: pointer;
+            user-select: none;
+        }
+        /* Bloque de Examen */
+        .exam-section {
+            grid-column: span 2;
+            background: #fffbeb;
+            border: 1px dashed #f2ae1b;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            display: none;
+        }
+        /* Resultados */
+        .results-box {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            border-left: 5px solid #004077;
+        }
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .result-row.total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-top: 1px solid #ddd;
+            padding-top: 8px;
+            margin-top: 12px;
+        }
+        .alert-box {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: none;
+            text-align: center;
+            font-weight: 500;
+        }
+        .badge {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: white;
+        }
+        .badge.aprobado { background-color: #16a34a; }
+        .badge.reprobado { background-color: #dc2626; }
+        .badge.proceso { background-color: #d97706; }
+        
+        .btn-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #004077;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .btn-home:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="https://github.io" class="brand">
+            <img src="/logo.png" alt="Logo ProfeDiego" onerror="this.style.display='none'">
+            <span>ProfeDiego</span>
+        </a>
+        <div class="nav-title">
+            <h2>Calculadora de Notas 2026</h2>
+            <p>Portal del Estudiante • IPCHILE</p>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="card">
+            <h1>Simulador de Calificaciones</h1>
+            
+            <div class="form-grid">
+                <div class="input-group">
+                    <label for="epe1">EPE 1 (25%)</label>
+                    <input type="text" id="epe1" placeholder="Ej: 5.5" oninput="calcularNotas()">
+                </div>
+                <div class="input-group">
+                    <label for="epe2">EPE 2 (25%)</label>
+                    <input type="text" id="epe2" placeholder="Ej: 60" oninput="calcularNotas()">
+                </div>
+                <div class="input-group">
+                    <label for="epe3">EPE 3 (30%)</label>
+                    <input type="text" id="epe3" placeholder="Ej: 4.5" oninput="calcularNotas()">
+                </div>
+                <div class="input-group">
+                    <label for="eva">Promedio EVA (20%)</label>
+                    <input type="text" id="eva" placeholder="Ej: 5.0" oninput="calcularNotas()">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="epe2_nucleo" onchange="calcularNotas()">
+                    <label for="epe2_nucleo">⚠️ Marcar si la EPE 2 es Evaluación Núcleo</label>
+                </div>
+
+                <div class="exam-section" id="exam_wrapper">
+                    <div class="input-group" style="max-width: 250px; margin: 0 auto;">
+                        <label for="examen" style="color: #9a3412;">Nota del Examen (30%)</label>
+                        <input type="text" id="examen" placeholder="Ej: 4.0" oninput="calcularNotas()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-box">
+                <div class="result-row">
+                    <span>Promedio Presentación (70%):</span>
+                    <span id="res_presentacion">-</span>
+                </div>
+                <div class="result-row" id="row_reemplazo" style="display:none; color: #16a34a; font-size: 0.9rem;">
+                    <span>Nota reemplazada en EPE:</span>
+                    <span id="res_detalle_reemplazo">-</span>
+                </div>
+                <div class="result-row total">
+                    <span>Nota Final Asignatura:</span>
+                    <span id="res_final">-</span>
+                </div>
+                <div class="result-row" style="margin-top: 10px; justify-content: center;">
+                    <span id="res_estado" class="badge proceso">Ingresar notas</span>
+                </div>
+                <div class="alert-box" id="msg_redondeo"></div>
+            </div>
+
+            <a href="https://github.io" class="btn-home">← Volver al Portal de Estudios</a>
+        </div>
+    </main>
+       <script>
+        function limpiarYFormatearNota(valor) {
+            if (!valor) return 0;
+            let str = valor.toString().trim().replace(',', '.');
+            let num = parseFloat(str);
+            if (isNaN(num)) return 0;
+            // Corrección automática: si el alumno ingresa 60, lo transforma a 6.0
+            if (num > 10 && num <= 70) {
+                num = num / 10;
+            }
+            return (num >= 1.0 && num <= 7.0) ? num : 0;
+        }
+
+        function calcularNotas() {
+            let epe1 = limpiarYFormatearNota(document.getElementById('epe1').value);
+            let epe2 = limpiarYFormatearNota(document.getElementById('epe2').value);
+            let epe3 = limpiarYFormatearNota(document.getElementById('epe3').value);
+            let eva = limpiarYFormatearNota(document.getElementById('eva').value);
+            let epe2Nucleo = document.getElementById('epe2_nucleo').checked;
+            let examenInput = document.getElementById('examen');
+            let examen = limpiarYFormatearNota(examenInput.value);
+
+            let examWrapper = document.getElementById('exam_wrapper');
+            let msgRedondeo = document.getElementById('msg_redondeo');
+            let rowReemplazo = document.getElementById('row_reemplazo');
+            
+            msgRedondeo.style.display = "none";
+            rowReemplazo.style.display = "none";
+
+            // Validar que se ingresen todas las notas base
+            if (!epe1 || !epe2 || !epe3 || !eva) {
+                document.getElementById('res_presentacion').innerText = "-";
+                document.getElementById('res_final').innerText = "-";
+                document.getElementById('res_estado').className = "badge proceso";
+                document.getElementById('res_estado').innerText = "Ingresar notas base";
+                examWrapper.style.display = "none";
+                return;
+            }
+
+            // 1. Promedio de presentación original
+            let promPresentacionOriginal = (epe1 * 0.25) + (epe2 * 0.25) + (epe3 * 0.30) + (eva * 0.20);
+            
+            // Regla de eximición desde 4.95 sube a 5.0
+            let promPresentacionFinal = promPresentacionOriginal;
+            let fueRedondeadoEximicion = false;
+            if (promPresentacionOriginal >= 4.95 && promPresentacionOriginal < 5.0) {
+                promPresentacionFinal = 5.0;
+                fueRedondeadoEximicion = true;
+            } else {
+                promPresentacionFinal = Math.round(promPresentacionOriginal * 10) / 10;
+            }
+
+            document.getElementById('res_presentacion').innerText = promPresentacionFinal.toFixed(1);
+
+            // 2. Condición de Eximición
+            if (promPresentacionFinal >= 5.0) {
+                examWrapper.style.display = "none";
+                examenInput.value = ""; 
+                document.getElementById('res_final').innerText = promPresentacionFinal.toFixed(1);
+                document.getElementById('res_estado').className = "badge aprobado";
+                document.getElementById('res_estado').innerText = "¡Eximido! Asignatura Aprobada";
+                
+                if (fueRedondeadoEximicion) {
+                    msgRedondeo.innerText = "✨ ¡Nota aproximada de " + promPresentacionOriginal.toFixed(2) + " a 5.0 para otorgar la eximición!";
+                    msgRedondeo.style.display = "block";
+                }
+                return;
+            }
+
+            // 3. Habilitar sección de Examen si no se exime
+            examWrapper.style.display = "block";
+            document.getElementById('res_estado').className = "badge proceso";
+            document.getElementById('res_estado').innerText = "Rinde Examen";
+
+            if (!document.getElementById('examen').value) {
+                document.getElementById('res_final').innerText = "-";
+                return;
+            }
+
+            // 4. Evaluar Reemplazo de la nota más baja
+            let epe1Obj = { nombre: 'EPE 1', nota: epe1, ponderacion: 0.25, id: 1 };
+            let epe2Obj = { nombre: 'EPE 2', nota: epe2, ponderacion: 0.25, id: 2 };
+            let epe3Obj = { nombre: 'EPE 3', nota: epe3, ponderacion: 0.30, id: 3 };
+
+            let candidatos = [];
+            candidatos.push(epe1Obj);
+            if (!epe2Nucleo) candidatos.push(epe2Obj); 
+            candidatos.push(epe3Obj);
+
+            // Orden estratégico ante empates: prioriza la de mayor ponderación (EPE 3)
+            candidatos.sort((a, b) => {
+                if (a.nota !== b.nota) return a.nota - b.nota; 
+                return b.ponderacion - a.ponderacion; 
+            });
+
+            let candidataAReemplazo = candidatos[0];
+            let notaEpe1Final = epe1;
+            let notaEpe2Final = epe2;
+            let notaEpe3Final = epe3;
+
+            // Solo reemplaza si la nota del examen es mayor
+            if (examen > candidataAReemplazo.nota) {
+                if (candidataAReemplazo.id === 1) notaEpe1Final = examen;
+                if (candidataAReemplazo.id === 2) notaEpe2Final = examen;
+                if (candidataAReemplazo.id === 3) notaEpe3Final = examen;
+
+                rowReemplazo.style.display = "flex";
+                document.getElementById('res_detalle_reemplazo').innerText = candidataAReemplazo.nombre + " (" + candidataAReemplazo.nota.toFixed(1) + " → " + examen.toFixed(1) + ")";
+            }
+
+            // 5. Recalcular ponderaciones finales (70% presentación corregida + 30% examen)
+            let promPresentacionModificado = (notaEpe1Final * 0.25) + (notaEpe2Final * 0.25) + (notaEpe3Final * 0.30) + (eva * 0.20);
+            let notaFinalPrevia = (promPresentacionModificado * 0.70) + (examen * 0.30);
+            
+            // Regla de redondeo final para aprobación (3.95 sube a 4.0)
+            let notaFinalDefinitiva = notaFinalPrevia;
+            let fueRedondeadoAprobacion = false;
+            if (notaFinalPrevia >= 3.95 && notaFinalPrevia < 4.0) {
+                notaFinalDefinitiva = 4.0;
+                fueRedondeadoAprobacion = true;
+            } else {
+                notaFinalDefinitiva = Math.round(notaFinalPrevia * 10) / 10;
+            }
+
+            document.getElementById('res_final').innerText = notaFinalDefinitiva.toFixed(1);
+
+            if (notaFinalDefinitiva >= 4.0) {
+                document.getElementById('res_estado').className = "badge aprobado";
+                document.getElementById('res_estado').innerText = "Asignatura Aprobada";
+            } else {
+                document.getElementById('res_estado').className = "badge reprobado";
+                document.getElementById('res_estado').innerText = "Asignatura Reprobada";
+            }
+
+            if (fueRedondeadoAprobacion) {
+                msgRedondeo.innerText = "✨ ¡Nota final aproximada automáticamente de " + notaFinalPrevia.toFixed(2) + " a 4.0 por cumplir el criterio de aprobación!";
+                msgRedondeo.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
