@@ -290,3 +290,174 @@
             <a href="https://github.io" class="btn-home">← Volver al Portal de Estudios</a>
         </div>
     </main>
+
+       <script>
+        function limpiarYFormatearNota(valor) {
+            if (!valor) return 0;
+            let str = valor.toString().trim().replace(',', '.');
+            let num = parseFloat(str);
+            if (isNaN(num)) return 0;
+            if (num > 10 && num <= 70) {
+                num = num / 10;
+            }
+            return (num >= 1.0 && num <= 7.0) ? num : 0;
+        }
+
+        function calcularNotas() {
+            let epe1 = limpiarYFormatearNota(document.getElementById('epe1').value);
+            let epe2 = limpiarYFormatearNota(document.getElementById('epe2').value);
+            let epe3 = limpiarYFormatearNota(document.getElementById('epe3').value);
+            let eva = limpiarYFormatearNota(document.getElementById('eva').value);
+            let epe2Nucleo = document.getElementById('epe2_nucleo').checked;
+            let examenInput = document.getElementById('examen');
+            let examen = limpiarYFormatearNota(examenInput.value);
+
+            let examWrapper = document.getElementById('exam_wrapper');
+            let predictionMsg = document.getElementById('prediction_msg');
+            let msgRedondeo = document.getElementById('msg_redondeo');
+            let rowReemplazo = document.getElementById('row_reemplazo');
+            
+            msgRedondeo.style.display = "none";
+            rowReemplazo.style.display = "none";
+
+            if (!epe1 || !epe2 || !epe3 || !eva) {
+                document.getElementById('res_presentacion').innerText = "-";
+                document.getElementById('res_final').innerText = "-";
+                document.getElementById('res_estado').className = "badge proceso";
+                document.getElementById('res_estado').innerText = "Ingresar notas base";
+                examWrapper.style.display = "none";
+                return;
+            }
+
+            // 1. Promedio presentación base original
+            let promPresentacionOriginal = (epe1 * 0.25) + (epe2 * 0.25) + (epe3 * 0.30) + (eva * 0.20);
+            
+            // Eximición desde 4.95 a 5.0
+            let promPresentacionFinal = promPresentacionOriginal;
+            let fueRedondeadoEximicion = false;
+            if (promPresentacionOriginal >= 4.95 && promPresentacionOriginal < 5.0) {
+                promPresentacionFinal = 5.0;
+                fueRedondeadoEximicion = true;
+            } else {
+                promPresentacionFinal = Math.round(promPresentacionOriginal * 10) / 10;
+            }
+
+            document.getElementById('res_presentacion').innerText = promPresentacionFinal.toFixed(1);
+
+            // 2. Evaluar Eximición
+            if (promPresentacionFinal >= 5.0) {
+                examWrapper.style.display = "none";
+                examenInput.value = ""; 
+                document.getElementById('res_final').innerText = promPresentacionFinal.toFixed(1);
+                document.getElementById('res_estado').className = "badge aprobado";
+                document.getElementById('res_estado').innerText = "¡Eximido! Asignatura Aprobada";
+                
+                if (fueRedondeadoEximicion) {
+                    msgRedondeo.innerText = "✨ ¡Nota aproximada de " + promPresentacionOriginal.toFixed(2) + " a 5.0 para otorgar la eximición!";
+                    msgRedondeo.style.display = "block";
+                }
+                return;
+            }
+
+            // 3. Si va a examen, calcular la nota predictiva que necesita para aprobar (obtener un 3.95 final)
+            examWrapper.style.display = "block";
+            
+            let notaNecesaria = 0;
+            let aproboConPrediccion = false;
+
+            // Buscamos de forma precisa en incrementos de 0.1 la nota mínima del examen de 1.0 a 7.0
+            for (let notaSimulada = 1.0; notaSimulada <= 7.0; notaSimulada = parseFloat((notaSimulada + 0.1).toFixed(1))) {
+                let epe1Sim = epe1, epe2Sim = epe2, epe3Sim = epe3;
+                
+                // Mapeo dinámico de candidatos al reemplazo por cada nota simulada
+                let listaCandidatos = [
+                    { id: 1, nota: epe1, pond: 0.25 },
+                    { id: 3, nota: epe3, pond: 0.30 }
+                ];
+                if (!epe2Nucleo) {
+                    listaCandidatos.push({ id: 2, nota: epe2, pond: 0.25 });
+                }
+                listaCandidatos.sort((a, b) => (a.nota !== b.nota) ? a.nota - b.nota : b.pond - a.pond);
+                let peorEpe = listaCandidatos[0];
+
+                if (notaSimulada > peorEpe.nota) {
+                    if (peorEpe.id === 1) epe1Sim = notaSimulada;
+                    if (peorEpe.id === 2) epe2Sim = notaSimulada;
+                    if (peorEpe.id === 3) epe3Sim = notaSimulada;
+                }
+
+                let presModificada = (epe1Sim * 0.25) + (epe2Sim * 0.25) + (epe3Sim * 0.30) + (eva * 0.20);
+                let finalPrevia = (presModificada * 0.70) + (notaSimulada * 0.30);
+
+                if (finalPrevia >= 3.95) {
+                    notaNecesaria = notaSimulada;
+                    aproboConPrediccion = true;
+                    break;
+                }
+            }
+
+            if (aproboConPrediccion) {
+                predictionMsg.innerHTML = "🎯 Nota mínima necesaria en el Examen para aprobar: <strong>" + notaNecesaria.toFixed(1) + "</strong>";
+            } else {
+                predictionMsg.innerHTML = "⚠️ Matemáticamente no es posible alcanzar el 4.0 de aprobación incluso obteniendo un 7.0 en el examen.";
+            }
+
+            // 4. Lógica de cálculo tradicional si el alumno ingresa una nota en el cuadro
+            if (!document.getElementById('examen').value) {
+                document.getElementById('res_final').innerText = "-";
+                document.getElementById('res_estado').className = "badge proceso";
+                document.getElementById('res_estado').innerText = "Rinde Examen";
+                return;
+            }
+
+            let epe1Obj = { id: 1, nota: epe1, pond: 0.25, nombre: 'EPE 1' };
+            let epe2Obj = { id: 2, nota: epe2, pond: 0.25, nombre: 'EPE 2' };
+            let epe3Obj = { id: 3, nota: epe3, pond: 0.30, nombre: 'EPE 3' };
+
+            let candidatosReales = [epe1Obj, epe3Obj];
+            if (!epe2Nucleo) candidatosReales.push(epe2Obj);
+
+            candidatosReales.sort((a, b) => (a.nota !== b.nota) ? a.nota - b.nota : b.pond - a.pond);
+            let masBajaReal = candidatosReales[0];
+
+            let notaEpe1Final = epe1, notaEpe2Final = epe2, notaEpe3Final = epe3;
+
+            if (examen > masBajaReal.nota) {
+                if (masBajaReal.id === 1) notaEpe1Final = examen;
+                if (masBajaReal.id === 2) notaEpe2Final = examen;
+                if (masBajaReal.id === 3) notaEpe3Final = examen;
+
+                rowReemplazo.style.display = "flex";
+                document.getElementById('res_detalle_reemplazo').innerText = masBajaReal.nombre + " (" + masBajaReal.nota.toFixed(1) + " → " + examen.toFixed(1) + ")";
+            }
+
+            let promPresentacionModificado = (notaEpe1Final * 0.25) + (notaEpe2Final * 0.25) + (notaEpe3Final * 0.30) + (eva * 0.20);
+            let notaFinalPrevia = (promPresentacionModificado * 0.70) + (examen * 0.30);
+            
+            let notaFinalDefinitiva = notaFinalPrevia;
+            let fueRedondeadoAprobacion = false;
+            if (notaFinalPrevia >= 3.95 && notaFinalPrevia < 4.0) {
+                notaFinalDefinitiva = 4.0;
+                fueRedondeadoAprobacion = true;
+            } else {
+                notaFinalDefinitiva = Math.round(notaFinalPrevia * 10) / 10;
+            }
+
+            document.getElementById('res_final').innerText = notaFinalDefinitiva.toFixed(1);
+
+            if (notaFinalDefinitiva >= 4.0) {
+                document.getElementById('res_estado').className = "badge aprobado";
+                document.getElementById('res_estado').innerText = "Asignatura Aprobada";
+            } else {
+                document.getElementById('res_estado').className = "badge reprobado";
+                document.getElementById('res_estado').innerText = "Asignatura Reprobada";
+            }
+
+            if (fueRedondeadoAprobacion) {
+                msgRedondeo.innerText = "✨ ¡Nota final aproximada automáticamente de " + notaFinalPrevia.toFixed(2) + " a 4.0 por cumplir el criterio de aprobación!";
+                msgRedondeo.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
