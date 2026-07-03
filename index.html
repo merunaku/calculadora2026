@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Notas 2026 - ProfeDiego</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* COLORES ORIGINALES PRESERVADOS */
+            /* TUS COLORES ORIGINALES PRESERVADOS */
             --primary-color: #002b5c;
             --secondary-color: #f4b223;
             --bg-color: #f7f9fc;
@@ -18,8 +19,8 @@
         }
 
         body {
-            font-family: 'Quicksand', 'Segoe UI', system-ui, -apple-system, sans-serif;
-            /* Fondo animado degradado mucho más alegre, luminoso y enérgico */
+            font-family: 'Quicksand', 'Segoe UI', system-ui, sans-serif;
+            /* Fondo degradado vivo, alegre y luminoso */
             background: linear-gradient(-45deg, #e0f2fe, #fef3c7, #e0e7ff, #f0fdf4);
             background-size: 400% 400%;
             animation: gradientBg 12s ease infinite;
@@ -38,7 +39,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* ENCABEZADO MANTENIDO EXACTAMENTE IGUAL */
+        /* ENCABEZADO IDÉNTICO A TUS EXÁMENES (MANTENIDO INTACTO) */
         header {
             background-color: var(--primary-color);
             color: white;
@@ -94,30 +95,30 @@
             .title-layout { text-align: center; }
         }
 
-        /* CONTENEDOR RE DISEÑADO CON ASPECTO INFANTIL/ALEGRE PROFESIONAL */
+        /* DISEÑO DE TARJETA MEJORADO (MÁS VIVO Y ATRACTIVO) */
         .container {
             width: 90%;
             max-width: 550px;
-            margin: 30px 0;
+            margin: 35px 0;
             flex-grow: 1;
         }
 
         .card {
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0, 43, 92, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02);
-            padding: 35px 30px;
+            border-radius: 32px;
+            box-shadow: 0 25px 60px -15px rgba(0, 43, 92, 0.12), 0 10px 30px -10px rgba(0, 0, 0, 0.04);
+            padding: 40px 35px;
             margin-bottom: 20px;
             box-sizing: border-box;
-            border: 3px solid rgba(255, 255, 255, 0.8);
+            border: 3px solid rgba(255, 255, 255, 0.9);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
         }
 
-        /* Barra de estado con bordes redondeados bonitos */
+        /* Línea indicadora de estado fluida */
         .card::before {
             content: '';
             position: absolute;
@@ -130,71 +131,72 @@
         }
 
         .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 30px 50px rgba(var(--state-color-rgb, 0, 43, 92), 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 35px 70px -10px rgba(var(--state-color-rgb, 0, 43, 92), 0.18);
         }
 
         h2 { 
             color: var(--primary-color); 
             margin-top: 0; 
             text-align: center;
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 25px;
-            text-shadow: 1px 1px 0px rgba(0,0,0,0.05);
+            font-size: 1.9rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
         }
 
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 22px;
             margin-bottom: 25px;
         }
 
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
         }
 
         .input-group label {
             font-size: 0.85rem;
             font-weight: 700;
             color: #4b5563;
-            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        /* Inputs interactivos de aspecto amigable */
+        /* Inputs interactivos y amigables */
         .input-group input[type="text"] {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             border: 2.5px solid #e5e7eb;
             border-radius: 16px;
-            font-size: 1.25rem;
-            font-weight: 800;
+            font-size: 1.3rem;
+            font-weight: 900;
             text-align: center;
             color: #1f2937;
             box-sizing: border-box;
-            transition: all 0.25s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             background-color: #f9fafb;
         }
 
         .input-group input:focus {
             border-color: var(--state-color);
             background-color: #ffffff;
-            box-shadow: 0 0 0 5px rgba(var(--state-color-rgb, 0, 43, 92), 0.15);
+            box-shadow: 0 0 0 5px rgba(var(--state-color-rgb, 0, 43, 92), 0.18);
             outline: none;
-            transform: scale(1.03);
+            transform: scale(1.04);
         }
 
-        /* Checkbox con mejor diseño */
+        /* Checkbox optimizado con diseño llamativo */
         .checkbox-group {
             grid-column: span 2;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             background-color: #f0fdfa;
-            padding: 14px 18px;
+            padding: 16px;
             border-radius: 18px;
             border: 2px dashed #0d9488;
             transition: all 0.2s ease;
@@ -206,27 +208,27 @@
         }
 
         .checkbox-group input {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             cursor: pointer;
             accent-color: #0d9488;
         }
 
         .checkbox-group label {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: #115e59;
             cursor: pointer;
             user-select: none;
         }
 
-        /* Sección de examen destacada alegre */
+        /* Sección de examen destacada con fondo cálido animado */
         .exam-section {
             grid-column: span 2;
             background: linear-gradient(135deg, #fffdf5 0%, #fef3c7 100%);
             border: 3px dashed #f59e0b;
-            padding: 20px;
-            border-radius: 20px;
+            padding: 22px;
+            border-radius: 22px;
             margin-top: 5px;
             display: none;
             animation: bounceIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -240,51 +242,52 @@
         .prediction-box {
             background-color: #ffffff;
             color: #b45309;
-            padding: 12px;
+            padding: 14px;
             border-radius: 14px;
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             border: 2px solid #fcd34d;
-            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.1);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.08);
         }
 
-        /* Cuadro de resultados tipo marcador de juego */
+        /* Cuadro de resultados dinámico de alta gama */
         .results-box {
             margin-top: 30px;
-            padding: 22px;
-            border-radius: 20px;
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            padding: 25px;
+            border-radius: 22px;
+            background: #ffffff;
+            border: 2.5px solid #e2e8f0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);
         }
 
         .result-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 1rem;
-            font-weight: 600;
+            margin-bottom: 14px;
+            font-size: 1.05rem;
+            font-weight: 700;
             color: #4b5563;
             align-items: center;
         }
 
         .result-row.total {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 900;
             border-top: 3px dotted #cbd5e1;
-            padding-top: 16px;
-            margin-top: 16px;
+            padding-top: 18px;
+            margin-top: 18px;
             color: var(--state-color);
+            transition: color 0.3s ease;
         }
 
         .alert-box {
             background-color: #eff6ff;
             color: #1e40af;
-            padding: 12px;
+            padding: 14px;
             border-radius: 14px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             margin-top: 15px;
             display: none;
             text-align: center;
@@ -292,53 +295,46 @@
             border: 2px solid #bfdbfe;
         }
 
-        /* Badges de estados más llamativos */
+        /* Badges de estados rediseñados y con volumen */
         .badge {
             display: inline-block;
-            padding: 8px 24px;
+            padding: 10px 28px;
             border-radius: 50px;
-            font-weight: 800;
+            font-weight: 900;
             color: white;
-            font-size: 0.95rem;
+            font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            animation: popBadge 0.3s ease;
-        }
-        @keyframes popBadge {
-            0% { transform: scale(0.8); }
-            100% { transform: scale(1); }
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
         }
         .badge.aprobado { background: linear-gradient(135deg, #10b981, #059669); }
         .badge.reprobado { background: linear-gradient(135deg, #ef4444, #dc2626); }
-        .badge.proceso { background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; }
+        .badge.proceso { background: linear-gradient(135deg, #f59e0b, #d97706); }
         
-        /* BOTÓN DE RETORNO ESTILO PLAYFUL */
+        /* BOTÓN DE RETORNO ESTILO ACENTUADO */
         .btn-home {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
             margin: 30px auto 5px auto;
-            max-width: 280px;
+            max-width: 300px;
             background-color: #ffffff;
             color: var(--primary-color);
             text-decoration: none;
-            font-weight: 800;
-            font-size: 0.95rem;
-            padding: 12px 20px;
+            font-weight: 900;
+            font-size: 1rem;
+            padding: 14px 24px;
             border-radius: 50px;
-            border: 2.5px solid var(--primary-color);
-            box-shadow: 0 4px 6px rgba(0, 43, 92, 0.05);
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 4px 10px rgba(0, 43, 92, 0.05);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .btn-home:hover { 
             background-color: var(--primary-color);
             color: #ffffff;
-            border-color: var(--primary-color);
-            transform: scale(1.05);
-            box-shadow: 0 10px 20px rgba(0, 43, 92, 0.15);
+            transform: scale(1.06);
+            box-shadow: 0 12px 25px rgba(0, 43, 92, 0.15);
         }
     </style>
 </head>
@@ -364,7 +360,7 @@
             
             <div class="form-grid">
                 <div class="input-group">
-                    <label for="epe1">📝 EPE 1 (25%搭建)</label>
+                    <label for="epe1">📝 EPE 1 (25%)</label>
                     <input type="text" id="epe1" placeholder="Ej: 5.5" oninput="calcularNotas()">
                 </div>
                 <div class="input-group">
@@ -372,7 +368,7 @@
                     <input type="text" id="epe2" placeholder="Ej: 6.0" oninput="calcularNotas()">
                 </div>
                 <div class="input-group">
-                    <label for="epe3">📝 EPE 3 (30%搭建)</label>
+                    <label for="epe3">📝 EPE 3 (30%)</label>
                     <input type="text" id="epe3" placeholder="Ej: 4.5" oninput="calcularNotas()">
                 </div>
                 <div class="input-group">
@@ -388,7 +384,7 @@
                 <div class="exam-section" id="exam_wrapper">
                     <div id="prediction_msg" class="prediction-box"></div>
                     <div class="input-group" style="max-width: 250px; margin: 0 auto;">
-                        <label for="examen" style="color: #b45309; font-weight:800;">🎯 Tu Nota del Examen (30%)</label>
+                        <label for="examen" style="color: #b45309; font-weight:900;">🎯 Tu Nota del Examen (30%)</label>
                         <input type="text" id="examen" placeholder="Ej: 4.0" oninput="calcularNotas()">
                     </div>
                 </div>
@@ -397,7 +393,7 @@
             <div class="results-box">
                 <div class="result-row">
                     <span>Promedio Presentación (70%):</span>
-                    <span id="res_presentacion" style="font-weight:800; color:#1e2937;">-</span>
+                    <span id="res_presentacion" style="font-weight:900; color:#1e2937;">-</span>
                 </div>
                 <div class="result-row" id="row_reemplazo" style="display:none; color: #0d9488; font-size: 0.95rem; font-weight: bold;">
                     <span>🎉 ¡Nota reemplazada por Examen!:</span>
@@ -407,7 +403,7 @@
                     <span>Nota Final Asignatura:</span>
                     <span id="res_final">-</span>
                 </div>
-                <div class="result-row" style="margin-top: 18px; justify-content: center;">
+                <div class="result-row" style="margin-top: 20px; justify-content: center;">
                     <span id="res_estado" class="badge proceso">Ingresar notas base</span>
                 </div>
                 <div class="alert-box" id="msg_redondeo"></div>
@@ -431,7 +427,6 @@
             return (num >= 1.0 && num <= 7.0) ? num : 0;
         }
 
-        // Modifica el aura, bordes y brillos según la situación del alumno
         function actualizarColorEstado(colorHex, colorRgb) {
             const root = document.documentElement;
             root.style.setProperty('--state-color', colorHex);
