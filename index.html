@@ -9,9 +9,9 @@
             /* TUS COLORES ORIGINALES RECUPERADOS */
             --primary-color: #002b5c;
             --secondary-color: #f4b223;
-            --bg-color: #f0f4f8;
+            --bg-color: #f7f9fc;
             --card-bg: #ffffff;
-            --text-color: #1e293b;
+            --text-color: #333333;
             --success-color: #28a745;
             --error-color: #dc3545;
             --state-color: #002b5c; /* Cambia dinámicamente con JS */
@@ -19,7 +19,10 @@
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: radial-gradient(circle at top right, #e2e8f0 0%, var(--bg-color) 100%);
+            /* Fondo animado fluido de alta gama */
+            background: linear-gradient(-45deg, #e6eff9, #f0f4f8, #f8fafc, #dbeafe);
+            background-size: 400% 400%;
+            animation: gradientBg 15s ease infinite;
             color: var(--text-color);
             margin: 0;
             padding: 0;
@@ -27,7 +30,12 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            transition: background 0.4s ease;
+        }
+
+        @keyframes gradientBg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* ENCABEZADO IDÉNTICO A TUS EXÁMENES */
@@ -86,7 +94,7 @@
             .title-layout { text-align: center; }
         }
 
-        /* CONTENEDOR FLUIDO INTERACTIVO */
+               /* CONTENEDOR FLUIDO INTERACTIVO */
         .container {
             width: 90%;
             max-width: 600px;
@@ -95,19 +103,20 @@
         }
 
         .card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 43, 92, 0.06), 0 1px 3px rgba(0,0,0,0.02);
-            padding: 35px;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 43, 92, 0.12), 0 8px 24px -4px rgba(0, 43, 92, 0.04);
+            padding: 40px;
             margin-bottom: 20px;
             box-sizing: border-box;
-            border: 2px solid transparent;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
         }
 
-        /* Efecto de brillo dinámico superior */
         .card::before {
             content: '';
             position: absolute;
@@ -117,6 +126,12 @@
             height: 6px;
             background: var(--state-color);
             transition: background 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 30px 60px -15px rgba(var(--state-color-rgb, 0, 43, 92), 0.15);
+            border-color: rgba(var(--state-color-rgb, 0, 43, 92), 0.3);
         }
 
         h2 { 
@@ -129,7 +144,6 @@
             margin-bottom: 30px;
         }
 
-        /* Cuadrícula de Entradas Estilizada */
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -174,7 +188,6 @@
             transform: translateY(-2px);
         }
 
-        /* Contenedor del Checkbox Estilo Switch */
         .checkbox-group {
             grid-column: span 2;
             display: flex;
@@ -206,7 +219,6 @@
             user-select: none;
         }
 
-        /* Bloque Animado de Examen */
         .exam-section {
             grid-column: span 2;
             background-color: #fffdf5;
@@ -226,16 +238,23 @@
         .prediction-box {
             background-color: #fef3c7;
             color: #b45309;
-            padding: 14px;
-            border-radius: 10px;
+            padding: 16px;
+            border-radius: 12px;
             font-size: 1.05rem;
             font-weight: 700;
             text-align: center;
             margin-bottom: 20px;
             border: 1px solid #fcd34d;
+            box-shadow: 0 4px 6px rgba(217, 119, 6, 0.05);
+            animation: pulseAlert 2s infinite ease-in-out;
         }
 
-        /* Cuadro de Resultados Avanzado */
+        @keyframes pulseAlert {
+            0% { transform: scale(1); box-shadow: 0 4px 6px rgba(217, 119, 6, 0.05); }
+            50% { transform: scale(1.01); box-shadow: 0 10px 15px rgba(217, 119, 6, 0.1); }
+            100% { transform: scale(1); box-shadow: 0 4px 6px rgba(217, 119, 6, 0.05); }
+        }
+
         .results-box {
             margin-top: 35px;
             padding: 25px;
@@ -278,7 +297,6 @@
             animation: slideDown 0.3s ease;
         }
 
-        /* Badges de Estado Premium */
         .badge {
             display: inline-block;
             padding: 6px 20px;
@@ -294,21 +312,21 @@
         .badge.reprobado { background-color: var(--error-color); box-shadow: 0 4px 12px rgba(220,53,69,0.2); }
         .badge.proceso { background-color: var(--secondary-color); color: #1e293b; box-shadow: 0 4px 12px rgba(244,178,35,0.2); }
         
-        /* Retorno Limpio */
         .btn-home {
             display: block;
             text-align: center;
-            margin-top: 30px;
+            margin-top: 35px;
             color: var(--primary-color);
             text-decoration: none;
             font-weight: 700;
-            font-size: 1rem;
-            transition: all 0.2s;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            transition: all 0.2s ease;
         }
+
         .btn-home:hover { 
-            text-decoration: underline; 
-            color: #001a38;
-            transform: translateY(-1px);
+            color: var(--secondary-color);
+            transform: translateX(-2px);
         }
     </style>
 </head>
@@ -352,7 +370,7 @@
 
                 <div class="checkbox-group">
                     <input type="checkbox" id="epe2_nucleo" onchange="calcularNotas()">
-                    <label for="epe2_nucleo">⚠️ Marcar si la EPE 2 es Evaluación Núcleo</label>
+                    <label for="epe2_nucleo">Marcar si la EPE 2 es Evaluación Núcleo</label>
                 </div>
 
                 <div class="exam-section" id="exam_wrapper">
@@ -371,7 +389,7 @@
                 </div>
                 <div class="result-row" id="row_reemplazo" style="display:none; color: var(--success-color); font-size: 0.95rem; font-weight: bold;">
                     <span>Nota reemplazada por Examen:</span>
-                    <span id="res_detalle_reemplazo">-</span>
+                    <span id="res_details_reemplazo">-</span>
                 </div>
                 <div class="result-row total">
                     <span>Nota Final Asignatura:</span>
@@ -383,11 +401,12 @@
                 <div class="alert-box" id="msg_redondeo"></div>
             </div>
 
-            <a href="https://merunaku/github.io/ProfeDiego" class="btn-home">← Volver al Portal de Estudios</a>
+            <!-- Botón de retorno fijo hacia tu portal principal -->
+            <a href="https://github.io" class="btn-home">← Volver al Portal de Estudios</a>
         </div>
     </main>
 
-            <script>
+           <script>
         function limpiarYFormatearNota(valor) {
             if (!valor) return 0;
             let str = valor.toString().trim().replace(',', '.');
@@ -399,7 +418,7 @@
             return (num >= 1.0 && num <= 7.0) ? num : 0;
         }
 
-        // Función interactiva para cambiar el color del tema según rendimiento
+        // Modifica el aura, bordes y brillos según la situación del alumno
         function actualizarColorEstado(colorHex, colorRgb) {
             const root = document.documentElement;
             root.style.setProperty('--state-color', colorHex);
@@ -429,14 +448,14 @@
                 document.getElementById('res_estado').className = "badge proceso";
                 document.getElementById('res_estado').innerText = "Ingresar notas base";
                 examWrapper.style.display = "none";
-                actualizarColorEstado('#002b5c', '0, 43, 92'); // Azul Base
+                actualizarColorEstado('#002b5c', '0, 43, 92'); 
                 return;
             }
 
-            // 1. Promedio presentación base original
+            // 1. Promedio de presentación base
             let promPresentacionOriginal = (epe1 * 0.25) + (epe2 * 0.25) + (epe3 * 0.30) + (eva * 0.20);
             
-            // Eximición desde 4.95 a 5.0
+            // Criterio de eximición (4.95 sube a 5.0)
             let promPresentacionFinal = promPresentacionOriginal;
             let fueRedondeadoEximicion = false;
             if (promPresentacionOriginal >= 4.95 && promPresentacionOriginal < 5.0) {
@@ -455,7 +474,7 @@
                 document.getElementById('res_final').innerText = promPresentacionFinal.toFixed(1);
                 document.getElementById('res_estado').className = "badge aprobado";
                 document.getElementById('res_estado').innerText = "¡Eximido! Asignatura Aprobada";
-                actualizarColorEstado('#28a745', '40, 167, 69'); // Verde Éxito
+                actualizarColorEstado('#28a745', '40, 167, 69'); 
                 
                 if (fueRedondeadoEximicion) {
                     msgRedondeo.innerText = "✨ ¡Nota aproximada de " + promPresentacionOriginal.toFixed(2) + " a 5.0 para otorgar la eximición!";
@@ -466,7 +485,7 @@
 
             // 3. Activar Examen y Calcular Nota Predictiva Necesaria (Aprobar con un 3.95 final)
             examWrapper.style.display = "block";
-            actualizarColorEstado('#f59e0b', '245, 158, 11'); // Amarillo Examen
+            actualizarColorEstado('#f59e0b', '245, 158, 11'); 
             
             let notaNecesaria = 0;
             let aproboConPrediccion = false;
@@ -506,7 +525,7 @@
                 predictionMsg.innerHTML = "⚠️ Matemáticamente no es posible alcanzar el 4.0 de aprobación incluso obteniendo un 7.0 en el examen.";
             }
 
-            // 4. Lógica tradicional si el alumno ya ingresó su nota real de examen
+            // 4. Lógica tradicional si ingresan nota real de examen
             if (!document.getElementById('examen').value) {
                 document.getElementById('res_final').innerText = "-";
                 document.getElementById('res_estado').className = "badge proceso";
@@ -532,7 +551,8 @@
                 if (masBajaReal.id === 3) notaEpe3Final = examen;
 
                 rowReemplazo.style.display = "flex";
-                document.getElementById('res_detalle_reemplazo').innerText = masBajaReal.nombre + " (" + masBajaReal.nota.toFixed(1) + " → " + examen.toFixed(1) + ")";
+                // Corregido id del contenedor de texto de reemplazo
+                document.getElementById('res_details_reemplazo').innerText = masBajaReal.nombre + " (" + masBajaReal.nota.toFixed(1) + " → " + examen.toFixed(1) + ")";
             }
 
             let promPresentacionModificado = (notaEpe1Final * 0.25) + (notaEpe2Final * 0.25) + (notaEpe3Final * 0.30) + (eva * 0.20);
@@ -552,11 +572,11 @@
             if (notaFinalDefinitiva >= 4.0) {
                 document.getElementById('res_estado').className = "badge aprobado";
                 document.getElementById('res_estado').innerText = "Asignatura Aprobada";
-                actualizarColorEstado('#28a745', '40, 167, 69'); // Verde Aprobado
+                actualizarColorEstado('#28a745', '40, 167, 69'); 
             } else {
                 document.getElementById('res_estado').className = "badge reprobado";
                 document.getElementById('res_estado').innerText = "Asignatura Reprobada";
-                actualizarColorEstado('#dc3545', '220, 53, 69'); // Rojo Reprobado
+                actualizarColorEstado('#dc3545', '220, 53, 69'); 
             }
 
             if (fueRedondeadoAprobacion) {
