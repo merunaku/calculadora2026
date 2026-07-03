@@ -6,7 +6,7 @@
     <title>Calculadora de Notas 2026 - ProfeDiego</title>
     <style>
         :root {
-            /* COLORES INSTITUCIONALES ASIGNADOS */
+            /* TUS COLORES ORIGINALES RECUPERADOS */
             --primary-color: #002b5c;
             --secondary-color: #f4b223;
             --bg-color: #f7f9fc;
@@ -28,7 +28,7 @@
             min-height: 100vh;
         }
 
-        /* ENCABEZADO IDÉNTICO A TUS EXÁMENES */
+        /* ENCABEZADO CLÁSICO CLONADO DE TU EXAMEN */
         header {
             background-color: var(--primary-color);
             color: white;
@@ -83,7 +83,7 @@
             .title-layout { text-align: center; }
         }
 
-        /* CONTENEDOR DE LA CALCULADORA */
+        /* CONTENEDOR MODERNO DE LA CALCULADORA */
         .container {
             width: 90%;
             max-width: 600px;
@@ -93,9 +93,9 @@
 
         .card {
             background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 43, 92, 0.05);
+            padding: 35px;
             margin-bottom: 20px;
             box-sizing: border-box;
             animation: fadeIn 0.4s ease;
@@ -110,79 +110,85 @@
             color: var(--primary-color); 
             margin-top: 0; 
             text-align: center;
-            font-size: 1.6rem;
-            margin-bottom: 20px;
+            font-size: 1.7rem;
+            font-weight: bold;
+            margin-bottom: 25px;
         }
 
-        /* Formulario en Cuadrícula */
+        /* Cuadrícula Alegre para Formulario */
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 20px;
+            margin-bottom: 25px;
         }
 
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
         }
 
         .input-group label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #555;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #4a5568;
         }
 
         .input-group input[type="text"] {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            font-size: 1.1rem;
+            padding: 14px;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 1.2rem;
             font-weight: bold;
             text-align: center;
+            color: #1e293b;
             box-sizing: border-box;
-            transition: border-color 0.2s;
+            transition: all 0.2s ease;
+            background-color: #f8fafc;
         }
 
         .input-group input:focus {
             border-color: var(--primary-color);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(0, 43, 92, 0.1);
             outline: none;
         }
 
-        /* Checkbox de Evaluación Núcleo */
+        /* Control del Checkbox de Evaluación Núcleo */
         .checkbox-group {
             grid-column: span 2;
             display: flex;
             align-items: center;
-            gap: 10px;
-            background-color: #f0f4f8;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #d0dbe5;
+            gap: 12px;
+            background-color: #f1f5f9;
+            padding: 14px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
         }
 
         .checkbox-group input {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             cursor: pointer;
         }
 
         .checkbox-group label {
-            font-size: 0.9rem;
-            font-weight: 500;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #334155;
             cursor: pointer;
             user-select: none;
         }
 
-        /* Sección Dinámica del Examen */
+        /* Caja de Examen Dinámica */
         .exam-section {
             grid-column: span 2;
             background-color: #fffbeb;
             border: 2px dashed var(--secondary-color);
-            padding: 20px;
-            border-radius: 8px;
+            padding: 22px;
+            border-radius: 12px;
             margin-top: 5px;
             display: none;
             animation: fadeIn 0.3s ease;
@@ -191,46 +197,49 @@
         .prediction-box {
             background-color: #fef3c7;
             color: #92400e;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 0.95rem;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
             font-weight: bold;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border: 1px solid #fcd34d;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
 
-        /* Bloque de Resultados */
+        /* Bloque de Resultados Atractivo */
         .results-box {
-            margin-top: 25px;
-            padding: 20px;
-            border-radius: 8px;
-            background-color: #f8f9fa;
-            border-left: 5px solid var(--primary-color);
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 12px;
+            background-color: #f8fafc;
+            border-left: 6px solid var(--primary-color);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.01);
         }
 
         .result-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 1rem;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+            color: #475569;
         }
 
         .result-row.total {
-            font-size: 1.25rem;
+            font-size: 1.35rem;
             font-weight: bold;
-            border-top: 2px solid #e0e0e0;
-            padding-top: 10px;
-            margin-top: 12px;
+            border-top: 2px solid #e2e8f0;
+            padding-top: 14px;
+            margin-top: 15px;
             color: var(--primary-color);
         }
 
         .alert-box {
             background-color: #e0f2fe;
             color: #0369a1;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 0.9rem;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
             margin-top: 15px;
             display: none;
             text-align: center;
@@ -238,29 +247,35 @@
             border: 1px solid #bae6fd;
         }
 
-        /* Distintivos de Estado (Badges) */
+        /* Insignias de Estado Redondeadas */
         .badge {
             display: inline-block;
-            padding: 5px 15px;
+            padding: 6px 18px;
             border-radius: 20px;
             font-weight: bold;
             color: white;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
         }
-        .badge.aprobado { background-color: var(--success-color); }
-        .badge.reprobado { background-color: var(--error-color); }
-        .badge.proceso { background-color: var(--secondary-color); color: #333; }
+        .badge.aprobado { background-color: var(--success-color); box-shadow: 0 2px 8px rgba(40,167,69,0.25); }
+        .badge.reprobado { background-color: var(--error-color); box-shadow: 0 2px 8px rgba(220,53,69,0.25); }
+        .badge.proceso { background-color: var(--secondary-color); color: #1e293b; box-shadow: 0 2px 8px rgba(244,178,35,0.25); }
         
+        /* Botón Inferior Estilizado */
         .btn-home {
             display: block;
             text-align: center;
-            margin-top: 25px;
+            margin-top: 30px;
             color: var(--primary-color);
             text-decoration: none;
             font-weight: bold;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            transition: color 0.2s;
         }
-        .btn-home:hover { text-decoration: underline; }
+        .btn-home:hover { 
+            text-decoration: underline; 
+            color: #001a38;
+        }
     </style>
 </head>
 
@@ -281,23 +296,23 @@
 
     <main class="container">
         <div class="card">
-            <h2>Simulador de Calificaciones</h2>
+            <h2>Simulador de Calificaciones 📊</h2>
             
             <div class="form-grid">
                 <div class="input-group">
-                    <label for="epe1">EPE 1 (25%)</label>
+                    <label for="epe1">📝 EPE 1 (25%)</label>
                     <input type="text" id="epe1" placeholder="Ej: 5.5" oninput="calcularNotas()">
                 </div>
                 <div class="input-group">
-                    <label for="epe2">EPE 2 (25%)</label>
+                    <label for="epe2">📝 EPE 2 (25%)</label>
                     <input type="text" id="epe2" placeholder="Ej: 60" oninput="calcularNotas()">
                 </div>
                 <div class="input-group">
-                    <label for="epe3">EPE 3 (30%)</label>
+                    <label for="epe3">📝 EPE 3 (30%)</label>
                     <input type="text" id="epe3" placeholder="Ej: 4.5" oninput="calcularNotas()">
                 </div>
                 <div class="input-group">
-                    <label for="eva">Promedio EVA (20%)</label>
+                    <label for="eva">🎯 Promedio EVA (20%)</label>
                     <input type="text" id="eva" placeholder="Ej: 5.0" oninput="calcularNotas()">
                 </div>
 
@@ -309,7 +324,7 @@
                 <div class="exam-section" id="exam_wrapper">
                     <div id="prediction_msg" class="prediction-box"></div>
                     <div class="input-group" style="max-width: 250px; margin: 0 auto;">
-                        <label for="examen" style="color: #92400e;">Tu Nota del Examen (30%)</label>
+                        <label for="examen" style="color: #92400e;">🔥 Tu Nota del Examen (30%)</label>
                         <input type="text" id="examen" placeholder="Ej: 4.0" oninput="calcularNotas()">
                     </div>
                 </div>
@@ -321,7 +336,7 @@
                     <span id="res_presentacion" style="font-weight:600;">-</span>
                 </div>
                 <div class="result-row" id="row_reemplazo" style="display:none; color: var(--success-color); font-size: 0.95rem; font-weight: bold;">
-                    <span>Nota reemplazada por Examen:</span>
+                    <span>🚀 Nota reemplazada por Examen:</span>
                     <span id="res_detalle_reemplazo">-</span>
                 </div>
                 <div class="result-row total">
@@ -338,13 +353,13 @@
         </div>
     </main>
 
-          <script>
+         <script>
         function limpiarYFormatearNota(valor) {
             if (!valor) return 0;
             let str = valor.toString().trim().replace(',', '.');
             let num = parseFloat(str);
             if (isNaN(num)) return 0;
-            // Corrección de formato tipo 60 -> 6.0 de manera automática
+            // Corrección automática de formato tipo 60 -> 6.0
             if (num > 10 && num <= 70) {
                 num = num / 10;
             }
@@ -368,7 +383,7 @@
             msgRedondeo.style.display = "none";
             rowReemplazo.style.display = "none";
 
-            // Validar que estén ingresadas las 4 notas base
+            // Validar la inserción de las 4 notas base
             if (!epe1 || !epe2 || !epe3 || !eva) {
                 document.getElementById('res_presentacion').innerText = "-";
                 document.getElementById('res_final').innerText = "-";
@@ -381,7 +396,7 @@
             // 1. Calcular promedio de presentación base original
             let promPresentacionOriginal = (epe1 * 0.25) + (epe2 * 0.25) + (epe3 * 0.30) + (eva * 0.20);
             
-            // Regla de eximición desde 4.95 a 5.0
+            // Criterio de eximición desde 4.95 a 5.0
             let promPresentacionFinal = promPresentacionOriginal;
             let fueRedondeadoEximicion = false;
             if (promPresentacionOriginal >= 4.95 && promPresentacionOriginal < 5.0) {
@@ -399,7 +414,7 @@
                 examenInput.value = ""; 
                 document.getElementById('res_final').innerText = promPresentacionFinal.toFixed(1);
                 document.getElementById('res_estado').className = "badge aprobado";
-                document.getElementById('res_estado').innerText = "¡Eximido! Asignatura Aprobada";
+                document.getElementById('res_estado').innerText = "¡Eximido! Asignatura Aprobada 🎉";
                 
                 if (fueRedondeadoEximicion) {
                     msgRedondeo.innerText = "✨ ¡Nota aproximada de " + promPresentacionOriginal.toFixed(2) + " a 5.0 para otorgar la eximición!";
@@ -499,7 +514,7 @@
 
             if (notaFinalDefinitiva >= 4.0) {
                 document.getElementById('res_estado').className = "badge aprobado";
-                document.getElementById('res_estado').innerText = "Asignatura Aprobada";
+                document.getElementById('res_estado').innerText = "Asignatura Aprobada 🏆";
             } else {
                 document.getElementById('res_estado').className = "badge reprobado";
                 document.getElementById('res_estado').innerText = "Asignatura Reprobada";
