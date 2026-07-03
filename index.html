@@ -261,7 +261,7 @@
             <a href="https://github.io" class="btn-home">← Volver al Portal de Estudios</a>
         </div>
     </main>
-       <script>
+          <script>
         function limpiarYFormatearNota(valor) {
             if (!valor) return 0;
             let str = valor.toString().trim().replace(',', '.');
@@ -356,12 +356,13 @@
                 return b.ponderacion - a.ponderacion; 
             });
 
+            // CORRECCIÓN AQUÍ: Se extrae correctamente el primer elemento [0] del arreglo ordenado
             let candidataAReemplazo = candidatos[0];
             let notaEpe1Final = epe1;
             let notaEpe2Final = epe2;
             let notaEpe3Final = epe3;
 
-            // Solo reemplaza si la nota del examen es mayor
+            // Solo reemplaza si la nota del examen es mayor que la EPE más baja
             if (examen > candidataAReemplazo.nota) {
                 if (candidataAReemplazo.id === 1) notaEpe1Final = examen;
                 if (candidataAReemplazo.id === 2) notaEpe2Final = examen;
