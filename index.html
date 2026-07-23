@@ -4,16 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Notas 2026 - ProfeDiego</title>
-
-    <!-- Fuentes y Estilos Globales Centralizados -->
+    
+    <!-- Fuentes Google -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- ESTILOS GLOBALES -->
     <link rel="stylesheet" href="styles.css">
 
+    <!-- CONFIGURACIÓN Y HEADER GLOBAL -->
+    <script src="config.js"></script>
+    <script src="header.js"></script>
+
     <style>
-        /* Ajustes ESPECÍFICOS para la calculadora (No tocan tu styles.css) */
+        /* ==========================================================================
+           ESTILOS ESPECÍFICOS DE LA CALCULADORA (Mantenidos)
+           ========================================================================== */
+        
+        /* Sobrescribimos el pseudo-elemento de la tarjeta global para usar el color dinámico */
         .card::before {
-            background: var(--state-color, linear-gradient(90deg, var(--primary-color), var(--secondary-color))) !important;
+            background: var(--state-color, var(--primary-color)) !important;
             transition: background 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 70px -10px rgba(var(--state-color-rgb, 0, 43, 92), 0.18);
         }
 
         .form-grid {
@@ -27,6 +42,7 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
+            text-align: left;
         }
 
         .input-group label {
@@ -37,6 +53,7 @@
             letter-spacing: 0.5px;
         }
 
+        /* Inputs interactivos y amigables */
         .input-group input[type="text"] {
             width: 100%;
             padding: 14px;
@@ -52,17 +69,19 @@
         }
 
         .input-group input:focus {
-            border-color: var(--state-color, #002b5c);
+            border-color: var(--state-color, var(--primary-color));
             background-color: #ffffff;
             box-shadow: 0 0 0 5px rgba(var(--state-color-rgb, 0, 43, 92), 0.18);
             outline: none;
             transform: scale(1.04);
         }
 
+        /* Checkbox optimizado con diseño llamativo */
         .checkbox-group {
             grid-column: span 2;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 14px;
             background-color: #f0fdfa;
             padding: 16px;
@@ -91,6 +110,7 @@
             user-select: none;
         }
 
+        /* Sección de examen destacada con fondo cálido animado */
         .exam-section {
             grid-column: span 2;
             background: linear-gradient(135deg, #fffdf5 0%, #fef3c7 100%);
@@ -120,6 +140,7 @@
             box-shadow: 0 4px 12px rgba(245, 158, 11, 0.08);
         }
 
+        /* Cuadro de resultados dinámico de alta gama */
         .results-box {
             margin-top: 30px;
             padding: 25px;
@@ -145,7 +166,7 @@
             border-top: 3px dotted #cbd5e1;
             padding-top: 18px;
             margin-top: 18px;
-            color: var(--state-color, #002b5c);
+            color: var(--state-color, var(--primary-color));
             transition: color 0.3s ease;
         }
 
@@ -162,6 +183,7 @@
             border: 2px solid #bfdbfe;
         }
 
+        /* Badges de estados */
         .badge {
             display: inline-block;
             padding: 10px 28px;
@@ -173,24 +195,21 @@
             letter-spacing: 0.5px;
             box-shadow: 0 6px 16px rgba(0,0,0,0.08);
         }
-        .badge.aprobado { background: linear-gradient(135deg, #10b981, #059669); }
-        .badge.reprobado { background: linear-gradient(135deg, #ef4444, #dc2626); }
-        .badge.proceso { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .badge.aprobado { background: linear-gradient(135deg, var(--success-color), #059669); }
+        .badge.reprobado { background: linear-gradient(135deg, var(--error-color), #b91c1c); }
+        .badge.proceso { background: linear-gradient(135deg, var(--secondary-color), #d97706); }
         
         @media (max-width: 480px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            .checkbox-group, .exam-section {
-                grid-column: span 1;
-            }
+            .form-grid { grid-template-columns: 1fr; }
+            .checkbox-group { grid-column: span 1; }
+            .exam-section { grid-column: span 1; }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Contenedor donde se inyectará el encabezado -->
+    <!-- Contenedor donde header.js inyectará el encabezado -->
     <div id="global-header"></div>
 
     <main class="container">
@@ -223,7 +242,7 @@
                 <div class="exam-section" id="exam_wrapper">
                     <div id="prediction_msg" class="prediction-box"></div>
                     <div class="input-group" style="max-width: 250px; margin: 0 auto;">
-                        <label for="examen" style="color: #b45309; font-weight:900;">🎯 Tu Nota del Examen (30%)</label>
+                        <label for="examen" style="color: #b45309; font-weight:900; text-align: center;">🎯 Tu Nota del Examen (30%)</label>
                         <input type="text" id="examen" placeholder="Ej: 4.0" oninput="calcularNotas()">
                     </div>
                 </div>
@@ -248,26 +267,14 @@
                 <div class="alert-box" id="msg_redondeo"></div>
             </div>
 
-            <!-- Botón Volver -->
-            <a id="btn-return-home" href="#" class="btn-home">
+            <a href="https://merunaku.github.io/home/index.html" class="btn-home">
                 🏠 Volver al Portal de Estudios
             </a>
         </div>
     </main>
 
-    <!-- ¡IMPORTANTE! Los scripts deben ir AL FINAL del body -->
-    <script src="config.js"></script>
-    <script src="header.js"></script>
-
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Asigna dinámicamente la URL Base desde el config.js al botón de volver
-            const homeBtn = document.getElementById("btn-return-home");
-            if (homeBtn && typeof CONFIG !== 'undefined') {
-                homeBtn.href = CONFIG.URL_BASE;
-            }
-        });
-
+        // Funciones de Lógica de la Calculadora (Mantenidas Intactas)
         function limpiarYFormatearNota(valor) {
             if (!valor) return 0;
             let str = valor.toString().trim().replace(',', '.');
@@ -334,7 +341,7 @@
                 document.getElementById('res_final').innerText = promPresentacionFinal.toFixed(1);
                 document.getElementById('res_estado').className = "badge aprobado";
                 document.getElementById('res_estado').innerText = "¡Eximido! Asignatura Aprobada 🎉";
-                actualizarColorEstado('#10b981', '16, 185, 129'); 
+                actualizarColorEstado('#16a34a', '22, 163, 74'); 
                 
                 if (fueRedondeadoEximicion) {
                     msgRedondeo.innerText = "✨ ¡Nota aproximada de " + promPresentacionOriginal.toFixed(2) + " a 5.0 para otorgar la eximición!";
@@ -343,9 +350,9 @@
                 return;
             }
 
-            // 3. Activar Examen y Calcular Nota Predictiva Necesaria
+            // 3. Activar Examen y Calcular Nota Predictiva Necesaria (Aprobar con un 3.95 final)
             examWrapper.style.display = "block";
-            actualizarColorEstado('#f59e0b', '245, 158, 11'); 
+            actualizarColorEstado('#f4b223', '244, 178, 35'); 
             
             let notaNecesaria = 0;
             let aproboConPrediccion = false;
@@ -385,7 +392,7 @@
                 predictionMsg.innerHTML = "⚠️ Matemáticamente no es posible alcanzar el 4.0 de aprobación incluso obteniendo un 7.0 en el examen.";
             }
 
-            // 4. Lógica si ingresan nota real de examen
+            // 4. Lógica tradicional si ingresan nota real de examen
             if (!document.getElementById('examen').value) {
                 document.getElementById('res_final').innerText = "-";
                 document.getElementById('res_estado').className = "badge proceso";
@@ -431,11 +438,11 @@
             if (notaFinalDefinitiva >= 4.0) {
                 document.getElementById('res_estado').className = "badge aprobado";
                 document.getElementById('res_estado').innerText = "Asignatura Aprobada 🎉";
-                actualizarColorEstado('#10b981', '16, 185, 129'); 
+                actualizarColorEstado('#16a34a', '22, 163, 74'); 
             } else {
                 document.getElementById('res_estado').className = "badge reprobado";
                 document.getElementById('res_estado').innerText = "Asignatura Reprobada 😢";
-                actualizarColorEstado('#ef4444', '239, 68, 68'); 
+                actualizarColorEstado('#dc2626', '220, 38, 38'); 
             }
 
             if (fueRedondeadoAprobacion) {
