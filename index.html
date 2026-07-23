@@ -9,14 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 
-    <!-- Carga de Archivos de Configuración y Scripts compartidos -->
-    <script src="config.js"></script>
-    <script src="header.js"></script>
-
     <style>
-        /* Ajustes específicos para el dynamic color-picker de la tarjeta en esta página */
+        /* Ajustes ESPECÍFICOS para la calculadora (No tocan tu styles.css) */
         .card::before {
-            background: var(--state-color, linear-gradient(90deg, var(--primary-color), var(--secondary-color)));
+            background: var(--state-color, linear-gradient(90deg, var(--primary-color), var(--secondary-color))) !important;
             transition: background 0.4s ease;
         }
 
@@ -194,7 +190,7 @@
 
 <body>
 
-    <!-- Encabezado Inyectado Dinámicamente por header.js -->
+    <!-- Contenedor donde se inyectará el encabezado -->
     <div id="global-header"></div>
 
     <main class="container">
@@ -252,12 +248,16 @@
                 <div class="alert-box" id="msg_redondeo"></div>
             </div>
 
-            <!-- El botón asigna dinámicamente la URL Base configurada en config.js -->
+            <!-- Botón Volver -->
             <a id="btn-return-home" href="#" class="btn-home">
                 🏠 Volver al Portal de Estudios
             </a>
         </div>
     </main>
+
+    <!-- ¡IMPORTANTE! Los scripts deben ir AL FINAL del body -->
+    <script src="config.js"></script>
+    <script src="header.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -343,7 +343,7 @@
                 return;
             }
 
-            // 3. Activar Examen y Calcular Nota Predictiva Necesaria (Aprobar con un 3.95 final)
+            // 3. Activar Examen y Calcular Nota Predictiva Necesaria
             examWrapper.style.display = "block";
             actualizarColorEstado('#f59e0b', '245, 158, 11'); 
             
